@@ -58,12 +58,12 @@ public class CropHandler {
 		ItemCustomCrop item = new ItemCustomCrop();
 		Stuff.crop = Optional.of(item);
 		GameRegistry.registerItem(item, "extrabiomes.crop", Reference.MOD_ID);
-			Element element;String temp_sS = "";
 
 		for (ItemCustomCrop.CropType type : ItemCustomCrop.CropType.values()) {
+			final Element element;final String temp_sS;
 			temp_sS=type.name();
 			if (temp_sS.length() != 0) {
-				element = Element.valueOf("CROP_" + type.name());
+				element = Element.valueOf("CROP_" + temp_sS);
 			} else {
 				LogHelper.warning("Missing element for crop " + type);
     			continue;
@@ -82,13 +82,12 @@ public class CropHandler {
 		Stuff.seed = Optional.of(item);
 		GameRegistry.registerItem(item, "extrabiomes.seed", Reference.MOD_ID);
 
-			Element seed_element;
-			Element plant_element;String temp_sS = "";
 		for (ItemCustomSeed.SeedType type : ItemCustomSeed.SeedType.values()) {
+			final Element seed_element;final Element plant_element;final String temp_sS;
 			temp_sS=type.name();
 			if (temp_sS.length() != 0) {
-				seed_element = Element.valueOf("SEED_" + type.name());
-				plant_element = Element.valueOf("PLANT_" + type.name());
+				seed_element = Element.valueOf("SEED_" + temp_sS);
+				plant_element = Element.valueOf("PLANT_" + temp_sS);
 			} else {
 				LogHelper.warning("Missing element for seed " + type);
 				continue;
@@ -121,12 +120,11 @@ public class CropHandler {
     
     private static void createRegrowCrops() {
 		final CommonProxy proxy = Extrabiomes.proxy;
-		
-    		BlockSettings plant_settings;
-    		Element plant_element;
-    		Element crop_element;
 
     	for( BlockCropRegrow.CropType type : BlockCropRegrow.CropType.values() ) {
+			final BlockSettings plant_settings;
+			final Element plant_element;
+			final Element crop_element;
 			final String name = type.name();
 
     		if(name.length() !=0) {
