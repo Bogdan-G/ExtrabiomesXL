@@ -320,18 +320,13 @@ public class WorldGenJapaneseMapleTree extends WorldGenNewTreeBase
         double minDist = (radius - 2 > 0) ? ((radius - 2) * (radius - 2)) : -1;
         double maxDist = radius * radius;
         
-        for (int z1 = (int) -radius; z1 < (radius + 1); z1++)
+        try { for (int z1 = (int) -radius; z1 < (radius + 1); z1++)
         {
             for (int x1 = (int) -radius; x1 < (radius + 1); x1++)
             {
             	Block block;
             	
-            	try {
             		block = world.getBlock((int) (x1 + x), (int) y, (int) (z1 + z));
-            	} catch (Exception e) {
-            		LogHelper.info("Japanese Maple tree tried to generate in an ungenerated chunk.");
-            		return false;
-            	}
                 
                 if ((((x1 * x1) + (z1 * z1)) <= maxDist) && (((x1 * x1) + (z1 * z1)) >= minDist))
                 {
@@ -341,7 +336,7 @@ public class WorldGenJapaneseMapleTree extends WorldGenNewTreeBase
                     }
                 }
             }
-        }
+        }} catch (Exception e) {LogHelper.info("Japanese Maple tree tried to generate in an ungenerated chunk.");return false;}
         
         return true;
     }

@@ -52,22 +52,15 @@ public enum BlockManager
     
     private static void createBlocks() throws Exception
     {
-        for (final BlockManager block : BlockManager.values())
+        try { for (final BlockManager block : BlockManager.values())
             {
         		if( !block.getSettings().getEnabled() ) {
         			LogHelper.fine("Skipping registration of disabled block "+block);
         			continue;
         		}
-                try
-                {
                     block.create();
-                }
-                catch (final Exception e)
-                {
-                    throw e;
-                }
                 block.blockCreated = true;
-            }
+            }}catch (final Exception e) {throw e;}
     }
     
     public static void init() throws InstantiationException, IllegalAccessException

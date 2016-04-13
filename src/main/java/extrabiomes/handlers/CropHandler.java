@@ -58,12 +58,13 @@ public class CropHandler {
 		ItemCustomCrop item = new ItemCustomCrop();
 		Stuff.crop = Optional.of(item);
 		GameRegistry.registerItem(item, "extrabiomes.crop", Reference.MOD_ID);
+			final Element element;String temp_sS = "";
 
 		for (ItemCustomCrop.CropType type : ItemCustomCrop.CropType.values()) {
-			final Element element;
-			try {
+			temp_sS=type.name();
+			if (temp_sS.length() != 0) {
 				element = Element.valueOf("CROP_" + type.name());
-			} catch( Exception e ) {
+			} else {
 				LogHelper.warning("Missing element for crop " + type);
     			continue;
 			}
@@ -81,13 +82,14 @@ public class CropHandler {
 		Stuff.seed = Optional.of(item);
 		GameRegistry.registerItem(item, "extrabiomes.seed", Reference.MOD_ID);
 
-		for (ItemCustomSeed.SeedType type : ItemCustomSeed.SeedType.values()) {
 			final Element seed_element;
-			final Element plant_element;
-			try {
+			final Element plant_element;String temp_sS = "";
+		for (ItemCustomSeed.SeedType type : ItemCustomSeed.SeedType.values()) {
+			temp_sS=type.name();
+			if (temp_sS.length() != 0) {
 				seed_element = Element.valueOf("SEED_" + type.name());
 				plant_element = Element.valueOf("PLANT_" + type.name());
-			} catch (Exception e) {
+			} else {
 				LogHelper.warning("Missing element for seed " + type);
 				continue;
 			}
@@ -119,24 +121,23 @@ public class CropHandler {
     
     private static void createRegrowCrops() {
 		final CommonProxy proxy = Extrabiomes.proxy;
-
-    	for( BlockCropRegrow.CropType type : BlockCropRegrow.CropType.values() ) {
-			final String name = type.name();
-
+		
     		final BlockSettings plant_settings;
     		final Element plant_element;
     		final Element crop_element;
 
-    		try {
+    	for( BlockCropRegrow.CropType type : BlockCropRegrow.CropType.values() ) {
+			final String name = type.name();
+
+    		if(name.length() !=0) {
     			plant_settings = BlockSettings.valueOf(name);
     			
         		if(!plant_settings.getEnabled()) continue;
     			
 				plant_element = Element.valueOf("PLANT_" + name);
 				crop_element = Element.valueOf("CROP_" + name);
-    		} catch( Exception e ) {
-				LogHelper.warning("Missing settings or elements for plant " + type);
-    			continue;
+    		} else {
+				LogHelper.warning("Missing settings or elements for plant " + type);continue;
     		}
     		
     		final BlockCropRegrow block = new BlockCropRegrow(type);

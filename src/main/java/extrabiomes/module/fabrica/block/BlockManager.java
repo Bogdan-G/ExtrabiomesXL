@@ -1125,38 +1125,26 @@ public enum BlockManager
     
     private static void createBlocks() throws Exception
     {
-        for (final BlockManager block : BlockManager.values())
+        try { for (final BlockManager block : BlockManager.values())
             if (block.getSettings().getEnabled())
             {
-                try
-                {
                     block.create();
-                }
-                catch (final Exception e)
-                {
-                    throw e;
-                }
                 block.blockCreated = true;
-            }
+            }} catch (final Exception e) {throw e;}
     }
     
     public static void init() throws InstantiationException, IllegalAccessException
     {
-        for (final BlockManager block : values())
+        try{ for (final BlockManager block : values())
         {
             if (block.blockCreated) {
                 block.prepare();
                 if( block._flammable && block._stuff.isPresent() ) {
-                    try {
                         block._block = (Block)block._stuff.get();
                         Blocks.fire.setFireInfo(block._block, 5, 20);
-                    } catch(ArrayIndexOutOfBoundsException e) {
-                        LogHelper.severe("Unable to set "+block+" flammable", e);
-                        block._flammable = false;
-                    }
                 }
             }
-        }
+        }}catch(ArrayIndexOutOfBoundsException e) {LogHelper.severe("Unable to set "+block+" flammable", e);block._flammable = false;}
     }
     
     public static void preInit() throws Exception

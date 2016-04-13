@@ -182,14 +182,12 @@ public abstract class BlockHandler {
       proxy.registerBlock(block, extrabiomes.items.ItemFlower.class, "flower" + (group + 1));
 
       Collection<BlockType> types = block.getGroupTypes();
+      final Element element;String temp_sS = "";
       for (BlockType type : types) {
-        final Element element;
-        try {
-          element = Element.valueOf(type.name());
-        } catch (Exception e) {
-          LogHelper.warning("No element found for flower " + type);
-          continue;
-        }
+        temp_sS = type.name();
+        if (temp_sS.length() != 0) {
+          element = Element.valueOf(type.name());} else {
+          LogHelper.warning("No element found for flower " + type);continue;}
         type.setBlock(block);
         ItemStack item = new ItemStack(block, 1, type.metadata());
         element.set(item);
@@ -212,14 +210,12 @@ public abstract class BlockHandler {
     // BlockCustomVine.BlockType[] vines = BlockCustomVine.BlockType.values();
     BlockCustomVine.BlockType[] vines = { BlockCustomVine.BlockType.GLORIOSA };
 
+    final BlockSettings settings;String temp_sS = "";
     for (BlockCustomVine.BlockType blockType : vines) {
-      final BlockSettings settings;
-      try {
-        settings = BlockSettings.valueOf(blockType.name());
-      } catch (Exception e) {
-        LogHelper.severe("Unable to find settings for " + blockType);
-        continue;
-      }
+        temp_sS = blockType.name();
+        if (temp_sS.length() != 0) {
+        settings = BlockSettings.valueOf(blockType.name());}else{
+        LogHelper.severe("Unable to find settings for " + blockType);continue;}
 
       if (!settings.getEnabled())
         continue;
@@ -234,12 +230,10 @@ public abstract class BlockHandler {
       proxy.registerBlock(block, ItemBlock.class, "vines");
 
       final Element element;
-      try {
-        element = Element.valueOf("VINE_" + blockType.name());
-      } catch (Exception e) {
-        LogHelper.warning("No element found for vine " + blockType);
-        continue;
-      }
+      temp_sS=blockType.name();
+      if (temp_sS.length() != 0) {
+      element = Element.valueOf("VINE_" + blockType.name());}else{
+      LogHelper.warning("No element found for vine " + blockType);continue;}
       final ItemStack item = new ItemStack(block, 1);
       element.set(item);
 
