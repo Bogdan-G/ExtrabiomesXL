@@ -50,13 +50,12 @@ public abstract class RecipeHandler
 	private static void writeSeedRecipes() {
 		if (!Stuff.seed.isPresent() || !Stuff.crop.isPresent()) return;
 
-			Element seed_element;
-			Element crop_element;String temp_sS = "";
 		for (ItemCustomSeed.SeedType type : ItemCustomSeed.SeedType.values()) {
+			final Element seed_element; final Element crop_element;final String temp_sS;
 			temp_sS = type.name();
 			if (temp_sS.length() != 0) {
-				seed_element = Element.valueOf("SEED_" + type.name());
-				crop_element = Element.valueOf("CROP_" + type.name());
+				seed_element = Element.valueOf("SEED_" + temp_sS);
+				crop_element = Element.valueOf("CROP_" + temp_sS);
 			} else {
 				LogHelper.severe("Unable to find crop source for seed " + type);continue;
 			}
@@ -84,13 +83,10 @@ public abstract class RecipeHandler
     {
         final CommonProxy proxy = Extrabiomes.proxy;
         
-			BlockType block;String temp_sS = "";
 		for (Element element : Element.values()) {
-			temp_sS=element.name();
 			if (!element.isPresent()) continue;
-			if (temp_sS.length() != 0) {
-				try { block = BlockCustomFlower.BlockType.valueOf(temp_sS); } catch (Exception e) { continue; }
-			} else { continue; }
+			final BlockType block;
+			try { block = BlockCustomFlower.BlockType.valueOf(element.name()); } catch (Exception e) { continue; }
 			if (block != null) {
 				final int color = block.color();
 				final ItemStack dye;
