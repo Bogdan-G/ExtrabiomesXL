@@ -211,7 +211,7 @@ public abstract class BlockHandler {
     BlockCustomVine.BlockType[] vines = { BlockCustomVine.BlockType.GLORIOSA };
 
     for (BlockCustomVine.BlockType blockType : vines) {
-        final BlockSettings settings; final String temp_sS;
+        final BlockSettings settings; String temp_sS;
         temp_sS = blockType.name();
         if (temp_sS.length() != 0) {
         settings = BlockSettings.valueOf(temp_sS);}else{
