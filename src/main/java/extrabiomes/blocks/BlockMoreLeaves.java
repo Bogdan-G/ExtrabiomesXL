@@ -104,7 +104,7 @@ public class BlockMoreLeaves extends BlockLeavesBase implements IShearable
     private static final int METADATA_DECAYBIT      = 0x8;
     private static final int METADATA_CLEARDECAYBIT = -METADATA_DECAYBIT - 1;
     
-    private static int calcSmoothedBiomeFoliageColor(IBlockAccess iBlockAccess, int x, int z)
+    /*private static int calcSmoothedBiomeFoliageColor(IBlockAccess iBlockAccess, int x, int z)
     {
         int red = 0;
         int green = 0;
@@ -122,7 +122,7 @@ public class BlockMoreLeaves extends BlockLeavesBase implements IShearable
         }
         
         return (red / 9 & 255) << 16 | (green / 9 & 255) << 8 | blue / 9 & 255;
-    }
+    }*/
     
     static private int clearDecayOnMetadata(int metadata)
     {

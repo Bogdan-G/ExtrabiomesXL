@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import extrabiomes.lib.Element;
 import extrabiomes.module.summa.TreeSoilRegistry;
+import org.bogdang.modifications.random.XSTR;
 
 public class WorldGenFirTree extends WorldGenAbstractTree
 {
@@ -73,7 +74,7 @@ public class WorldGenFirTree extends WorldGenAbstractTree
         // Store the seed
         lastSeed = rand.nextLong();
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -81,7 +82,7 @@ public class WorldGenFirTree extends WorldGenAbstractTree
         // Store the seed
         lastSeed = seed;
         
-        return generateTree(world, new Random(seed), x, y, z);
+        return generateTree(world, new XSTR(seed), x, y, z);
     }
     
     private boolean generateTree(World world, Random rand, int x, int y, int z)

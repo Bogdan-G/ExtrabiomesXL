@@ -38,7 +38,7 @@ public class WorldGenCustomSwamp extends WorldGenNewTreeBase {
 
     for (int y1 = y; y1 <= y + 1 + height; y1++) {
 
-      if (y1 < 0 && y1 >= 256) {
+      if (y1 < 0/* && y1 >= 256*/) {
         return false;
       }
 

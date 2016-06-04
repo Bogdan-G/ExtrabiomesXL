@@ -479,7 +479,7 @@ public class BlockCustomSapling extends BlockFlower
     {
         Block block = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
-        return !block.isAir(world, x, y, z) && block != null && sapling.getItem().equals(Item.getItemFromBlock(block)) && sapling.getItemDamage() == metadata;
+        return !block.isAir(world, x, y, z) && /*block != null && */sapling.getItem().equals(Item.getItemFromBlock(block)) && sapling.getItemDamage() == metadata;
     }
     
     @SubscribeEvent

@@ -87,7 +87,7 @@ public abstract class RecipeHandler
 			if (!element.isPresent()) continue;
 			final BlockType block;
 			try { block = BlockCustomFlower.BlockType.valueOf(element.name()); } catch (Exception e) { continue; }
-			if (block != null) {
+			//if (block != null) {
 				final int color = block.color();
 				final ItemStack dye;
 				switch (color) {
@@ -110,7 +110,7 @@ public abstract class RecipeHandler
 				}
 				final IRecipe recipe = new ShapelessOreRecipe(dye, element.get());
 				proxy.addRecipe(recipe);
-			}
+			//}
 		}
 
 		if (Element.VINE_GLORIOSA.isPresent()) {

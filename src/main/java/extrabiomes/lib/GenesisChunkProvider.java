@@ -24,6 +24,7 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import org.bogdang.modifications.random.XSTR;
 
 public class GenesisChunkProvider extends ChunkProviderGenerate {
 	private final BiomeGenBase	_biome;
@@ -85,7 +86,7 @@ public class GenesisChunkProvider extends ChunkProviderGenerate {
 		int k = i * 16;
 		int l = j * 16;
 
-		Random rand = new Random(this._world.getSeed());
+		Random rand = new XSTR(this._world.getSeed());
 		long i1 = rand.nextLong() / 2L * 2L + 1L;
 		long j1 = rand.nextLong() / 2L * 2L + 1L;
 		rand.setSeed(i * i1 + j * j1 ^ this._world.getSeed());

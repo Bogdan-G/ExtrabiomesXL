@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import org.bogdang.modifications.random.XSTR;
 
 public class WorldGenBigAutumnTree extends WorldGenAutumnTree
 {
@@ -27,13 +28,13 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
         WorldGenBigAutumnTree.trunkMetadata = metadata;
     }
     
-    private final Random rand              = new Random();
+    private final Random rand              = new XSTR();
     private World        world;
     private final int[]  basePos           = new int[] { 0, 0, 0 };
     private int          heightLimit       = 0;
     private int          height;
-    private final double heightAttenuation = 0.618D;
-    private final double branchSlope       = 0.381D;
+    private static final double heightAttenuation = 0.618D;
+    private static final double branchSlope       = 0.381D;
     private double       scaleWidth        = 1.1D;
     private double       leafDensity       = 1.0D;
     private int          heightLimitLimit  = 12;
@@ -106,7 +107,7 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
         // Store the seed
         lastSeed = rand.nextLong();
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -114,7 +115,7 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
         // Store the seed
         lastSeed = seed;
         
-        return generateTree(world, new Random(seed), x, y, z);
+        return generateTree(world, new XSTR(seed), x, y, z);
     }
     
     private boolean generateTree(World world, Random rand, int x, int y, int z)

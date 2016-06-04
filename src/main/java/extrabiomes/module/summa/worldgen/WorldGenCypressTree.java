@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import extrabiomes.lib.Element;
 import extrabiomes.module.summa.TreeSoilRegistry;
+import org.bogdang.modifications.random.XSTR;
 
 public class WorldGenCypressTree extends WorldGenNewTreeBase
 {
@@ -58,10 +59,10 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
         lastSeed = rand.nextLong();
         
         // Make sure we can generate the tree
-        if (!checkTree(world, new Random(lastSeed), x, y, z))
+        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
             return false;
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -70,10 +71,10 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
         lastSeed = seed;
         
         // Make sure we can generate the tree
-        if (!checkTree(world, new Random(lastSeed), x, y, z))
+        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
             return false;
         
-        return generateTree(world, new Random(seed), x, y, z);
+        return generateTree(world, new XSTR(seed), x, y, z);
     }
     
     //Variables to control the generation

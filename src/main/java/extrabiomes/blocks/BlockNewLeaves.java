@@ -313,11 +313,11 @@ public class BlockNewLeaves extends BlockLeavesBase implements IShearable
         
         switch (metadata)
         {
-            case 0:
-                return ColorizerFoliage.getFoliageColor(1.0F, 0.5F);
             case 1:
                 return 0xffffff;
                 //return ColorizerFoliage.getFoliageColor(1.0F, 0.2F);
+            case 0:
+                //return ColorizerFoliage.getFoliageColor(1.0F, 0.5F);
             case 2:
                 return ColorizerFoliage.getFoliageColor(1.0F, 0.5F);
             default:

@@ -284,7 +284,7 @@ public class BlockCustomFlower extends Block implements IPlantable
     {
         for (final BlockType type : groupMap.values()) {
         	// Don't show the Shrub and the Root in the creative menu
-        	if(this.group != 0 || (type.metadata() != 0 & type.metadata() != 5)) {
+        	if(this.group != 0 || (type.metadata() != 0 && type.metadata() != 5)) {
         		itemList.add(new ItemStack(this, 1, type.metadata()));
         	}
         }

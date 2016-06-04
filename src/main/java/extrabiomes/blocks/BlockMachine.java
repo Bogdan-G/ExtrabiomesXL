@@ -143,7 +143,7 @@ public class BlockMachine extends Block {
 		if (worldObj == null) {
 			LogHelper.warning("Target dimension 0 is not loaded for genesis?!");
 		}
-		ChunkProviderServer providerServer = (ChunkProviderServer) worldObj.getChunkProvider();
+		ChunkProviderServer providerServer = (ChunkProviderServer) worldObj.getChunkProvider();//FindBugs: NP - NP_NULL_ON_SOME_PATH
 		GenesisChunkProvider providerGenesis = new GenesisChunkProvider(world, newBiome);
 
 		// clear players from the danger zone and force unload chunks in
@@ -181,17 +181,17 @@ public class BlockMachine extends Block {
 			lastloaded = providerServer.getLoadedChunkCount();
 			providerServer.unloadQueuedChunks();
 
-			for (final Pair<Integer, Integer> coord : chunks.keySet()) {
+			/*for (final Pair<Integer, Integer> coord : chunks.keySet()) {
 				final Chunk chunk = chunks.get(coord);
 				if (chunk != null) {
 					if (chunk.isChunkLoaded) {
-						LogHelper.warning("Failed to unload chunk @ " + coord);
+						LogHelper.warning("Failed to unload chunk @ " + coord);*/
 						/*
 						 * } else { LogHelper.info("Chunk unloaded @ " + coord);
 						 */
-					}
-				}
-			}
+					//}
+				//}
+			//}
 		}
 		chunks.clear();
 		LogHelper.info(providerServer.makeString());
@@ -228,16 +228,16 @@ public class BlockMachine extends Block {
 		// new Object[] { sender.getCommandSenderName(), chunkX, chunkZ,
 		// Integer.valueOf(range), Integer.valueOf(caller.dimension) }), new
 		// Object[0]);
-		for (int x1 = chunkX.intValue() - range; x1 <= chunkX.intValue() + range; x1++) {
-			for (int z1 = chunkZ.intValue() - range; z1 <= chunkZ.intValue() + range; z1++) {
+		/*for (int x1 = chunkX.intValue() - range; x1 <= chunkX.intValue() + range; x1++) {
+			for (int z1 = chunkZ.intValue() - range; z1 <= chunkZ.intValue() + range; z1++) {*/
                 /*
 				PlayerInstance chunkwatcher = worldObj.getPlayerManager().getOrCreateChunkWatcher(x1, z1, false);
 				if (chunkwatcher != null) {
 					chunkwatcher.sendToAllPlayersWatchingChunk(new Packet51MapChunk(worldObj.getChunkFromChunkCoords(x1, z1), true, -1));
 				}
 				*/
-			}
-		}
+			/*}
+		}*/
 
 		GenesisBiomeOverrideHandler.disable();
 

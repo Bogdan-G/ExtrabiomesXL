@@ -2,6 +2,9 @@ package extrabiomes.module.summa.worldgen;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
@@ -11,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import extrabiomes.lib.Element;
 import extrabiomes.module.summa.TreeSoilRegistry;
+import org.bogdang.modifications.random.XSTR;
 
 public class WorldGenJapaneseMapleShrub extends WorldGenNewTreeBase
 {
@@ -63,7 +67,7 @@ public class WorldGenJapaneseMapleShrub extends WorldGenNewTreeBase
         // Make sure the tree can generate
         //if(!checkTree(world, new Random(lastSeed), x, y, z)) return false;
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -74,7 +78,7 @@ public class WorldGenJapaneseMapleShrub extends WorldGenNewTreeBase
         // Make sure the tree can generate
         //if(!checkTree(world, new Random(lastSeed), x, y, z)) return false;
         
-        return generateTree(world, new Random(seed), x, y, z);
+        return generateTree(world, new XSTR(seed), x, y, z);
     }
     
     //Variables to control the generation
@@ -129,7 +133,8 @@ public class WorldGenJapaneseMapleShrub extends WorldGenNewTreeBase
         
         double[] average = { 0, 0, 0 };
         int[] start = { x, y, z };
-        Queue<int[]> branches = new LinkedList<int[]>();
+        //Queue<int[]> branches = new LinkedList<int[]>();
+        List<int[]> branches = new ArrayList<int[]>();
         
         // Generate the branches
         for (int i = 0; i < branchCount; i++)
@@ -190,7 +195,8 @@ public class WorldGenJapaneseMapleShrub extends WorldGenNewTreeBase
         
         double[] average = { 0, 0, 0 };
         int[] start = { x, y, z };
-        Queue<int[]> branches = new LinkedList<int[]>();
+        //Queue<int[]> branches = new LinkedList<int[]>();
+        List<int[]> branches = new ArrayList<int[]>();
         
         // Generate the branches
         for (int i = 0; i < branchCount; i++)

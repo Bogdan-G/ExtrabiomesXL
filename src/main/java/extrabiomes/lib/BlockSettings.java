@@ -128,10 +128,10 @@ public enum BlockSettings
         return toString() + ".enabled";
     }
     
-    private boolean isQuarterLog()
+    /*private boolean isQuarterLog()
     {
         return this == QUARTERLOG0 || this == QUARTERLOG1 || this == QUARTERLOG2 || this == QUARTERLOG3;
-    }
+    }*/
     
     public void load(EnhancedConfiguration configuration, boolean update)
     {

@@ -96,7 +96,7 @@ public class CropHandler {
 			final ItemStack seed_item = new ItemStack(item, 1, type.meta);
 			seed_element.set(seed_item);
 			// and associate with our target block
-			if (plant_element != null && plant_element.isPresent()) {
+			if (/*plant_element != null && */plant_element.isPresent()) {
                 final ItemStack plant_stack = plant_element.get();
 				final Block block = Block.getBlockFromItem(plant_stack.getItem());
                 if(block == Blocks.air) {

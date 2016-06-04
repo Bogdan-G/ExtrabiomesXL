@@ -40,7 +40,7 @@ public class EntityScarecrow extends EntityGolem
         return false;
     }
     
-    private class EntityAIScareClosest extends EntityAIWatchClosest
+    private static class EntityAIScareClosest extends EntityAIWatchClosest
     {
         
         public EntityAIScareClosest(EntityLiving par1EntityLiving, Class<?> par2Class, float par3)

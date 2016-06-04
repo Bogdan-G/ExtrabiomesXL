@@ -2,6 +2,8 @@ package extrabiomes.module.summa.worldgen;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import extrabiomes.lib.Element;
 import extrabiomes.module.summa.TreeSoilRegistry;
+import org.bogdang.modifications.random.XSTR;
 
 public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
 {
@@ -65,10 +68,10 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         lastSeed = rand.nextLong();
         
         // Make sure that we can generate the tree
-        if (!checkTree(world, new Random(lastSeed), x, y, z))
+        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
             return false;
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -77,10 +80,10 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         lastSeed = seed;
         
         // Make sure that we can generate the tree
-        if (!checkTree(world, new Random(lastSeed), x, y, z))
+        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
             return false;
         
-        return generateTree(world, new Random(lastSeed), x, y, z);
+        return generateTree(world, new XSTR(lastSeed), x, y, z);
     }
     
     //Variables to control the generation
@@ -192,7 +195,8 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         int trunkEnd = (int) (height * TRUNK_HEIGHT_PERCENT);
         int[] start = { 0, 0, 0 };
         int[] end = { 0, 0, 0 };
-        Queue<int[]> branches = new LinkedList<int[]>();
+        //Queue<int[]> branches = new LinkedList<int[]>();
+        List<int[]> branches = new ArrayList<int[]>();
         
         // Generate some test branches
         for (int branch = 0; branch < branchCount; branch++)
@@ -265,7 +269,8 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         int trunkEnd = (int) (height * TRUNK_HEIGHT_PERCENT);
         int[] start = { 0, 0, 0 };
         int[] end = { 0, 0, 0 };
-        Queue<int[]> branches = new LinkedList<int[]>();
+        //Queue<int[]> branches = new LinkedList<int[]>();
+        List<int[]> branches = new ArrayList<int[]>();
         
         // Generate some test branches
         for (int branch = 0; branch < branchCount; branch++)
@@ -320,7 +325,7 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
     
     public void generateKnees(World world, Random rand, int x, int y, int z)
     {
-        switch (rand.nextInt(11))
+        /*switch (rand.nextInt(11))
         {
             case 0:
             case 1:
@@ -340,9 +345,17 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
                 break;
             default:
                 break;
-        }
+        }*/
+        int s_0 = rand.nextInt(11);
+        if (s_0 >= 0 && s_0 <= 3) {
+                placeKnee(x - 1, y, z, ((rand.nextInt(3) != 0) ? 1 : 2), 2, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_0 >= 4 && s_0 <= 7) {
+                placeKnee(x - 1, y, z + 1, ((rand.nextInt(3) != 0) ? 1 : 2), 2, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_0 == 8) {
+                placeKnee(x - 1, y, z, ((rand.nextInt(5) != 0) ? 1 : 2), 2, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+                placeKnee(x - 1, y, z + 1, ((rand.nextInt(2) != 0) ? 1 : 2), 2, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);}
         
-        switch (rand.nextInt(11))
+        /*switch (rand.nextInt(11))
         {
             case 0:
             case 1:
@@ -362,9 +375,17 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
                 break;
             default:
                 break;
-        }
+        }*/
+        int s_1 = rand.nextInt(11);
+        if (s_1 >= 0 && s_1 <= 3) {
+                placeKnee(x, y, z - 1, ((rand.nextInt(3) != 0) ? 1 : 2), 3, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_1 >= 4 && s_1 <= 7) {
+                placeKnee(x + 1, y, z - 1, ((rand.nextInt(3) != 0) ? 1 : 2), 3, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_1 == 8) {
+                placeKnee(x, y, z - 1, ((rand.nextInt(3) != 0) ? 1 : 2), 3, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+                placeKnee(x + 1, y, z - 1, ((rand.nextInt(5) != 0) ? 1 : 2), 3, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);}
         
-        switch (rand.nextInt(11))
+        /*switch (rand.nextInt(11))
         {
             case 0:
             case 1:
@@ -384,9 +405,17 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
                 break;
             default:
                 break;
-        }
+        }*/
+        int s_2 = rand.nextInt(11);
+        if (s_2 >= 0 && s_2 <= 3) {
+                placeKnee(x + 2, y, z, ((rand.nextInt(3) != 0) ? 1 : 2), 0, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_2 >= 4 && s_2 <= 7) {
+                placeKnee(x + 2, y, z + 1, ((rand.nextInt(3) != 0) ? 1 : 2), 0, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_2 == 8) {
+                placeKnee(x + 2, y, z, ((rand.nextInt(3) != 0) ? 1 : 2), 0, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+                placeKnee(x + 2, y, z + 1, ((rand.nextInt(3) != 0) ? 1 : 2), 0, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);}
         
-        switch (rand.nextInt(11))
+        /*switch (rand.nextInt(11))
         {
             case 0:
             case 1:
@@ -406,7 +435,15 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
                 break;
             default:
                 break;
-        }
+        }*/
+        int s_3 = rand.nextInt(11);
+        if (s_3 >= 0 && s_3 <= 3) {
+                placeKnee(x, y, z + 2, ((rand.nextInt(3) != 0) ? 1 : 2), 1, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_3 >= 4 && s_3 <= 7) {
+                placeKnee(x + 1, y, z + 2, ((rand.nextInt(3) != 0) ? 1 : 2), 1, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+        } else if (s_3 == 8) {
+                placeKnee(x, y, z + 2, ((rand.nextInt(2) != 0) ? 1 : 2), 1, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);
+                placeKnee(x + 1, y, z + 2, ((rand.nextInt(5) != 0) ? 1 : 2), 1, TreeBlock.KNEE_LOG.get(), TreeBlock.KNEE.get(), world);}
     }
     
     public void generateLeafCluster(World world, Random rand, int x, int y, int z, int height, int radius)

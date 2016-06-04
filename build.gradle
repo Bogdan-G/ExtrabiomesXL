@@ -28,6 +28,10 @@ ext.apiATG = "./api/atg"
 ext.apiNewDawn = "./api/newdawn"
 ext.apiThaumcraft = "./api/thaumcraft"
 
+// java version
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 minecraft {
     version = project.mcversion + "-" + project.forgeversion
     runDir = "run"
