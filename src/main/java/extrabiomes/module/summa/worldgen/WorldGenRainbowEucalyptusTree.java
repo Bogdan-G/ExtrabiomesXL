@@ -67,11 +67,12 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         // Store the seed
         lastSeed = rand.nextLong();
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure that we can generate the tree
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
+        if (!checkTree(world, tempR, x, y, z))
             return false;
         
-        return generateTree(world, new XSTR(lastSeed), x, y, z);
+        return generateTree(world, tempR, x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -79,11 +80,12 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         // Store the seed
         lastSeed = seed;
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure that we can generate the tree
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
+        if (!checkTree(world, tempR, x, y, z))
             return false;
         
-        return generateTree(world, new XSTR(lastSeed), x, y, z);
+        return generateTree(world, tempR, x, y, z);
     }
     
     //Variables to control the generation
@@ -108,16 +110,17 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         final int width = CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE);
         final int chunkCheck = width + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        //old: if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
             return false;
         
         // Make sure the cunks are loaded
@@ -145,16 +148,17 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         final int width = CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE);
         final int chunkCheck = width + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        //old: if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
             return false;
         
         // Make sure the cunks are loaded

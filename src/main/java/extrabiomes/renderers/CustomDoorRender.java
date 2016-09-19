@@ -1,5 +1,7 @@
 package extrabiomes.renderers;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,6 +16,7 @@ public class CustomDoorRender implements ISimpleBlockRenderingHandler {
 
   @Override
   public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    GL11.glPushMatrix();
     Tessellator tessellator = Tessellator.instance;
     int metadata = renderer.blockAccess.getBlockMetadata(x, y, z);
 
@@ -72,6 +75,7 @@ public class CustomDoorRender implements ISimpleBlockRenderingHandler {
     renderer.renderFaceXPos(block, (double)x, (double)y, (double)z, iicon);
     flag = true;
     renderer.flipTexture = false;
+    GL11.glPopMatrix();
     return flag;
   }
 

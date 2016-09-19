@@ -1,6 +1,6 @@
 package extrabiomes.subblocks;
 
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 import extrabiomes.api.events.GetBiomeIDEvent;
@@ -35,7 +35,7 @@ public class SubBlockWaterPlant extends SubBlock {
 		super(name);
 		maxHeight = height;
 		
-		groundBlocks = new LinkedList<Block>();
+		groundBlocks = new ArrayList<Block>();
 	
 		// Add dirt by default
 		groundBlocks.add(Blocks.dirt);

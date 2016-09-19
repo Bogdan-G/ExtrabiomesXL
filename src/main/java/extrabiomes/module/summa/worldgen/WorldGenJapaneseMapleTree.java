@@ -100,16 +100,16 @@ public class WorldGenJapaneseMapleTree extends WorldGenNewTreeBase
         final double radius = (CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE)) / 2.0D;
         final int chunkCheck = (int) Math.ceil(radius) + 5;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         // Make sure that all the needed chunks are loaded
@@ -132,16 +132,16 @@ public class WorldGenJapaneseMapleTree extends WorldGenNewTreeBase
         final double radius = (CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE)) / 2.0D;
         final int chunkCheck = (int) Math.ceil(radius) + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         // Make sure that all the needed chunks are loaded

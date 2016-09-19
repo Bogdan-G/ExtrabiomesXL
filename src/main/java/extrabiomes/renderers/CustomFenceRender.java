@@ -13,6 +13,7 @@ public class CustomFenceRender implements ISimpleBlockRenderingHandler {
 
   @Override
   public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+    GL11.glPushMatrix();
     final Tessellator tessellator = Tessellator.instance;
 
     for (int k = 0; k < 4; ++k) {
@@ -67,10 +68,12 @@ public class CustomFenceRender implements ISimpleBlockRenderingHandler {
     }
 
     renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+    GL11.glPopMatrix();
   }
 
   @Override
   public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    GL11.glPushMatrix();
     boolean flag = false;
     float f = 0.375F;
     float f1 = 0.625F;
@@ -136,6 +139,7 @@ public class CustomFenceRender implements ISimpleBlockRenderingHandler {
 
     renderer.field_152631_f = false;
     block.setBlockBoundsBasedOnState(world, x, y, z);
+    GL11.glPopMatrix();
     return flag;
   }
 

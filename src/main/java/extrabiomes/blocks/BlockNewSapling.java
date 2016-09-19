@@ -309,7 +309,7 @@ public class BlockNewSapling extends BlockFlower
                 int posX = (int) Math.floor(event.entityItem.lastTickPosX);
                 int posY = (int) Math.floor(event.entityItem.lastTickPosY);
                 int posZ = (int) Math.floor(event.entityItem.lastTickPosZ);
-                double chance = event.entityItem.worldObj.rand.nextDouble() * 100;
+                double chance = event.entityItem.worldObj.rand.nextFloat() * 100;
                 //event.entityItem
                 if (canThisPlantGrowOnThisBlock(event.entityItem.worldObj.getBlock(posX, posY - 1, posZ)))
                 {

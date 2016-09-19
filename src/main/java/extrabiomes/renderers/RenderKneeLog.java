@@ -27,6 +27,7 @@ public class RenderKneeLog implements ISimpleBlockRenderingHandler
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
+        GL11.glPushMatrix();
         final Tessellator var4 = Tessellator.instance;
         
         if (renderer.useInventoryTint)
@@ -72,11 +73,13 @@ public class RenderKneeLog implements ISimpleBlockRenderingHandler
         var4.draw();
         
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+        GL11.glPopMatrix();
     }
     
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
+        GL11.glPushMatrix();
         final int metadata = world.getBlockMetadata(x, y, z);
         
         switch (metadata)
@@ -144,6 +147,7 @@ public class RenderKneeLog implements ISimpleBlockRenderingHandler
         renderer.uvRotateTop = 0;
         renderer.uvRotateBottom = 0;
         renderer.flipTexture = false;
+        GL11.glPopMatrix();
         return didRender;
     }
     

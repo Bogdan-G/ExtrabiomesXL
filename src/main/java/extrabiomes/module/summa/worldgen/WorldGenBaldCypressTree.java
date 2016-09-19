@@ -72,19 +72,18 @@ public class WorldGenBaldCypressTree extends WorldGenNewTreeBase
         for (int yy = y - 1; yy > y - 6; yy--)
         {
             Block block = world.getBlock(x, yy, z);
-            if (!block.equals(Blocks.water))
-                break;
+            if (!block.equals(Blocks.water)) break;
             waterLevel++;
         }
         
         // Adjust the starting position
         y -= waterLevel;
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure that we can generate the tree
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z, waterLevel))
-            return false;
+        if (!checkTree(world, tempR, x, y, z, waterLevel)) return false;
         
-        return generateTree(world, new XSTR(lastSeed), x, y, z, waterLevel);
+        return generateTree(world, tempR, x, y, z, waterLevel);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -97,19 +96,19 @@ public class WorldGenBaldCypressTree extends WorldGenNewTreeBase
         for (int yy = y - 1; yy > y - 6; yy--)
         {
             Block block = world.getBlock(x, yy, z);
-            if (!block.equals(Blocks.water))
-                break;
+            if (!block.equals(Blocks.water)) break;
             waterLevel++;
         }
         
         // Adjust the starting position
         y -= waterLevel;
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure that we can generate the tree
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z, waterLevel))
+        if (!checkTree(world, tempR, x, y, z, waterLevel))
             return false;
         
-        return generateTree(world, new XSTR(seed), x, y, z, waterLevel);
+        return generateTree(world, tempR, x, y, z, waterLevel);
     }
     
     //Variables to control the generation
@@ -134,16 +133,17 @@ public class WorldGenBaldCypressTree extends WorldGenNewTreeBase
         int width = CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE);
         final int chunkCheck = width + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
-            return false;
-        
+        //up check
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
             return false;
         
         // Make sure the cunks are loaded
@@ -171,16 +171,19 @@ public class WorldGenBaldCypressTree extends WorldGenNewTreeBase
         int width = CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE);
         final int chunkCheck = width + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
-            return false;
-        
+        //up check
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+
+        // Make sure that a tree can grow on the soil
+        //old: if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
+        //reduce check
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
             return false;
         
         // Make sure the cunks are loaded

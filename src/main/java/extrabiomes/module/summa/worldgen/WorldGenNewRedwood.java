@@ -96,10 +96,10 @@ public class WorldGenNewRedwood extends WorldGenAbstractTree
         int flag1 = 1;
         int chunkCheck =  13;
 
-        if (y < 1 || y + height + 5 > 256)
+        if (y < 1 || y + height + 5 > 256 || y >= 256 - height - 1)
             return false;
 
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || y >= 256 - height - 1)
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         if (!world.checkChunksExist(x - chunkCheck, y - chunkCheck, z - chunkCheck, x + chunkCheck, y + chunkCheck, z + chunkCheck))
@@ -417,30 +417,24 @@ public class WorldGenNewRedwood extends WorldGenAbstractTree
     
     public boolean check2x2Trunk(int x, int y, int z, int height, World world, boolean inWater) {
         if (inWater) {
-            for (int y1 = y + 1; y1 < y + height; y1++) {
+            for (int y1 = y + 1; y1 < y + height; ) {
                 Block b00 = world.getBlock(x, y1, z);
-                Block b10 = world.getBlock(x + 1, y1, z);
-                Block b01 = world.getBlock(x, y1, z + 1);
+                //Block b10 = world.getBlock(x + 1, y1, z);
+                //Block b01 = world.getBlock(x, y1, z + 1);
                 Block b11 = world.getBlock(x + 1, y1, z + 1);
-                if (b00 != null && !b00.equals(Blocks.water) && !b00.isReplaceable(world, x, y1, z))
-                    return false;
-                if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z))
-                    return false;
-                if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1))
-                    return false;
-                if (b11 != null && !b11.equals(Blocks.water) && !b11.isReplaceable(world, x + 1, y1, z + 1))
-                    return false;
+                if (b00 != null && !b00.equals(Blocks.water) && !b00.isReplaceable(world, x, y1, z)) return false;
+                //if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z)) return false;
+                //if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1)) return false;
+                if (b11 != null && !b11.equals(Blocks.water) && !b11.isReplaceable(world, x + 1, y1, z + 1)) return false;
+                y1=y1+2;
             }
         } else {
-            for (int y1 = y + 1; y1 < y + height; y1++) {
-                if (!world.isAirBlock(x, y1, z))
-                    return false;
-                if (!world.isAirBlock(x + 1, y1, z))
-                    return false;
-                if (!world.isAirBlock(x, y1, z + 1))
-                    return false;
-                if (!world.isAirBlock(x + 1, y1, z + 1))
-                    return false;
+            for (int y1 = y + 1; y1 < y + height; ) {
+                if (!world.isAirBlock(x, y1, z)) return false;
+                //if (!world.isAirBlock(x + 1, y1, z)) return false;
+                //if (!world.isAirBlock(x, y1, z + 1)) return false;
+                if (!world.isAirBlock(x + 1, y1, z + 1)) return false;
+                y1=y1+2;
             }
         }
 

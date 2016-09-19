@@ -25,10 +25,11 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     
     public boolean check1x1Trunk(int x, int y, int z, int height, ItemStack logs, World world)
     {
-        for (int y1 = y + 1; y1 < y + height; y1++)
+        for (int y1 = y + 1; y1 < y + height; )
         {
             if (!world.isAirBlock(x, y1, z))
                 return false;
+            y1=y1+2;//reduce check
         }
         
         return true;
@@ -64,34 +65,36 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     {
         if (inWater)
         {
-            for (int y1 = y + 1; y1 < y + height; y1++)
+            for (int y1 = y + 1; y1 < y + height; )
             {
                 Block b00 = world.getBlock(x, y1, z);
-                Block b10 = world.getBlock(x + 1, y1, z);
-                Block b01 = world.getBlock(x, y1, z + 1);
+                //Block b10 = world.getBlock(x + 1, y1, z);
+                //Block b01 = world.getBlock(x, y1, z + 1);
                 Block b11 = world.getBlock(x + 1, y1, z + 1);
                 if (b00 != null && !b00.equals(Blocks.water) && !b00.isReplaceable(world, x, y1, z))
                     return false;
-                if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z))
-                    return false;
-                if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1))
-                    return false;
+                //if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z))
+                    //return false;
+                //if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1))
+                    //return false;
                 if (b11 != null && !b11.equals(Blocks.water) && !b11.isReplaceable(world, x + 1, y1, z + 1))
                     return false;
+                y1=y1+2;
             }
         }
         else
         {
-            for (int y1 = y + 1; y1 < y + height; y1++)
+            for (int y1 = y + 1; y1 < y + height; )
             {
                 if (!world.isAirBlock(x, y1, z))
                     return false;
-                if (!world.isAirBlock(x + 1, y1, z))
-                    return false;
-                if (!world.isAirBlock(x, y1, z + 1))
-                    return false;
+                //if (!world.isAirBlock(x + 1, y1, z))
+                    //return false;
+                //if (!world.isAirBlock(x, y1, z + 1))
+                    //return false;
                 if (!world.isAirBlock(x + 1, y1, z + 1))
                     return false;
+                y1=y1+2;
             }
         }
         

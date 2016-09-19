@@ -64,11 +64,12 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         // Store the seed
         lastSeed = rand.nextLong();
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure the tree can generate
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
+        if (!checkTree(world, tempR, x, y, z))
             return false;
         
-        return generateTree(world, new XSTR(lastSeed), x, y, z);
+        return generateTree(world, tempR, x, y, z);
     }
     
     public boolean generate(World world, long seed, int x, int y, int z)
@@ -76,11 +77,12 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         // Store the seed
         lastSeed = seed;
         
+        Random tempR = new XSTR(lastSeed);
         // Make sure the tree can generate
-        if (!checkTree(world, new XSTR(lastSeed), x, y, z))
+        if (!checkTree(world, tempR, x, y, z))
             return false;
         
-        return generateTree(world, new XSTR(seed), x, y, z);
+        return generateTree(world, tempR, x, y, z);
     }
     
     //Variables to control the generation
@@ -100,16 +102,16 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         final double radius = (CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE)) / 2.0D;
         final int chunkCheck = (int) Math.ceil(radius) + 5;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         // Make sure that all the needed chunks are loaded
@@ -132,16 +134,16 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         final double radius = (CANOPY_WIDTH + rand.nextInt(CANOPY_WIDTH_VARIANCE)) / 2.0D;
         final int chunkCheck = (int) Math.ceil(radius) + 1;
         
-        // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
-            return false;
-        
         // make sure that we have room to grow the tree
         if (y >= 256 - height - 4)
             return false;
         
         // Make sure that the tree can fit in the world
         if (y < 1 || y + height + 4 > 256)
+            return false;
+        
+        // Make sure that a tree can grow on the soil
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         // Make sure that all the needed chunks are loaded

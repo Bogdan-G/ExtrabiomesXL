@@ -33,8 +33,8 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
     private final int[]  basePos           = new int[] { 0, 0, 0 };
     private int          heightLimit       = 0;
     private int          height;
-    private static final double heightAttenuation = 0.618D;
-    private static final double branchSlope       = 0.381D;
+    private static final float heightAttenuation = 0.618f;
+    private static final float branchSlope       = 0.381f;
     private double       scaleWidth        = 1.1D;
     private double       leafDensity       = 1.0D;
     private int          heightLimitLimit  = 12;
@@ -75,8 +75,8 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
             else
                 var8 = -1;
             
-            final double var9 = (double) var3[var6] / (double) var3[var5];
-            final double var11 = (double) var3[var7] / (double) var3[var5];
+            final float var9 = (float) var3[var6] / (float) var3[var5];
+            final float var11 = (float) var3[var7] / (float) var3[var5];
             final int[] coord = new int[] { 0, 0, 0 };
             int var14 = 0;
             int var15;
@@ -84,8 +84,8 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
             for (var15 = var3[var5] + var8; var14 != var15; var14 += var8)
             {
                 coord[var5] = par1ArrayOfInteger[var5] + var14;
-                coord[var6] = MathHelper.floor_double(par1ArrayOfInteger[var6] + var14 * var9);
-                coord[var7] = MathHelper.floor_double(par1ArrayOfInteger[var7] + var14 * var11);
+                coord[var6] = MathHelper.floor_float(par1ArrayOfInteger[var6] + var14 * var9);
+                coord[var7] = MathHelper.floor_float(par1ArrayOfInteger[var7] + var14 * var11);
                 final Block block = world.getBlock(coord[0], coord[1], coord[2]);
                 
                 if (!block.isAir(world, coord[0], coord[1], coord[2]) && !block.isLeaves(world, coord[0], coord[1], coord[2]))
@@ -204,23 +204,21 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
             }
             else
             {
-                for (final double var9 = 0.5D; var7 < var1; ++var7)
+                for (final float var9 = 0.5f; var7 < var1; ++var7)
                 {
-                    final double var11 = scaleWidth * var8 * (rand.nextFloat() + 0.328D);
-                    final double var13 = rand.nextFloat() * 2.0D * Math.PI;
-                    final int var15 = MathHelper.floor_double(var11 * Math.sin(var13) + basePos[0]
-                            + var9);
-                    final int var16 = MathHelper.floor_double(var11 * Math.cos(var13) + basePos[2]
-                            + var9);
+                    final float var11 = (float)scaleWidth * var8 * (rand.nextFloat() + 0.328f);
+                    final float var13 = rand.nextFloat() * 2.0f * ((float)Math.PI);
+                    //final float msin = (float)Math.sin(var13);
+                    final int var15 = MathHelper.floor_float(var11 * (float)Math.sin(var13) + basePos[0] + var9);
+                    final int var16 = MathHelper.floor_float(var11 * (float)Math.cos(var13) + basePos[2] + var9);
                     final int[] var17 = new int[] { var15, var3, var16 };
                     final int[] var18 = new int[] { var15, var3 + leafDistanceLimit, var16 };
                     
                     if (checkBlockLine(var17, var18) == -1)
                     {
                         final int[] var19 = new int[] { basePos[0], basePos[1], basePos[2] };
-                        final double var20 = Math.sqrt(Math.pow(Math.abs(basePos[0] - var17[0]),
-                                2.0D) + Math.pow(Math.abs(basePos[2] - var17[2]), 2.0D));
-                        final double var22 = var20 * branchSlope;
+                        final float var20 = (float)Math.sqrt(Math.pow(Math.abs(basePos[0] - var17[0]), 2.0D) + Math.pow(Math.abs(basePos[2] - var17[2]), 2.0D));
+                        final float var22 = var20 * branchSlope;
                         
                         if (var17[1] - var22 > var5)
                         {
@@ -433,8 +431,7 @@ public class WorldGenBigAutumnTree extends WorldGenAutumnTree
         final int[] var2 = new int[] { basePos[0], basePos[1] + heightLimit - 1, basePos[2] };
         final Block var3 = world.getBlock(basePos[0], basePos[1] - 1, basePos[2]);
         
-        if (!var3.equals(Blocks.grass) && !var3.equals(Blocks.dirt))
-            return false;
+        if (!var3.equals(Blocks.grass) && !var3.equals(Blocks.dirt)) return false;
         else
         {
             final int var4 = checkBlockLine(var1, var2);

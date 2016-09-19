@@ -96,10 +96,10 @@ public class WorldGenRedwood extends WorldGenAbstractTree
         final int k = height - j;
         final int l = 2 + rand.nextInt(6);
         
-        if (y < 1 || y + height + 1 > 256)
+        if (y < 1 || y + height + 1 > 256 || y >= 256 - height - 1)
             return false;
         
-        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || y >= 256 - height - 1)
+        if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
             return false;
         
         for (int y1 = y; y1 <= y + 1 + height; y1++)

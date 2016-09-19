@@ -48,7 +48,7 @@ public class NewDawnPluginImpl implements NewDawnBiomeProvider
     }
     
     public static int fuzzValue(int value, Random rng) {
-    	final double fuzz = 0.2 * value * rng.nextDouble();
+    	final double fuzz = 0.2 * value * rng.nextFloat();
     	final double result = 0.9 * value + fuzz;
     	return (int)result;
     }
@@ -56,7 +56,7 @@ public class NewDawnPluginImpl implements NewDawnBiomeProvider
     	final Random rng = noise.getRandom();
     	final int sizeX = fuzzValue(size, rng);
     	final int sizeZ = fuzzValue(size, rng);
-    	final NoiseStretch stretch =  noise.generateNoiseStretcher(sizeX, sizeZ, rng.nextDouble(), rng.nextDouble());
+    	final NoiseStretch stretch =  noise.generateNoiseStretcher(sizeX, sizeZ, rng.nextFloat(), rng.nextFloat());
     	return stretch;
     }
     

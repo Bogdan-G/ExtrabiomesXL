@@ -169,6 +169,8 @@ public class WorldGenAutumnTree extends WorldGenAbstractTree
     
     private void growLeaves(final World world, final Random rand, final int x, final int y, final int z, final int height, Block leaf, int leafMeta)
     {
+        int rnd = rand.nextInt(2);
+        int rnd2;
         for (int y1 = y - CANOPY_HEIGHT + height; y1 <= y + height; ++y1)
         {
             final int canopyRow = y1 - (y + height);
@@ -185,7 +187,7 @@ public class WorldGenAutumnTree extends WorldGenAbstractTree
                     
                     final Block block = world.getBlock(x1, y1, z1);
                     
-                    if ((Math.abs(xDistanceFromTrunk) != radius || Math.abs(zDistanceFromTrunk) != radius || rand.nextInt(2) != 0 && canopyRow != 0) && (block == null || block.canBeReplacedByLeaves(world, x1, y1, z1)))
+                    if ((Math.abs(xDistanceFromTrunk) != radius || Math.abs(zDistanceFromTrunk) != radius || (rnd = (rnd2=rand.nextInt(2)) == rnd ? rand.nextInt(2) : rnd2) != 0 && canopyRow != 0) && (block == null || block.canBeReplacedByLeaves(world, x1, y1, z1)))
                     {
                         setBlockAndNotifyAdequately(world, x1, y1, z1, leaf, leafMeta);
                     }
