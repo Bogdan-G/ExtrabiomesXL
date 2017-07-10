@@ -151,4 +151,10 @@ public class BlockCustomLog extends BlockLog
     {
         return true;
     }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
 }

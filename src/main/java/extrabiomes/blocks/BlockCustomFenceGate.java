@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public class BlockCustomFenceGate extends BlockFenceGate {
   private String textureName;
@@ -37,5 +38,11 @@ public class BlockCustomFenceGate extends BlockFenceGate {
   public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
       return texture;
   }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
 
 }

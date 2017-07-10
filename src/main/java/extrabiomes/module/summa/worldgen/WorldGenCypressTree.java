@@ -91,14 +91,14 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
         final int height = rand.nextInt(BASE_HEIGHT_VARIANCE) + BASE_HEIGHT;
         int start = CANOPY_START_HEIGHT + (int) ((rand.nextFloat() * CANOPY_START_VARIANCE) - (CANOPY_START_VARIANCE / 2));
         double radius = (CANOPY_RADIUS + ((rand.nextFloat() * CANOPY_RADIUS_VARIANCE) + (CANOPY_RADIUS_VARIANCE / 2)));
-        double factor = 16.0D / (2 + height - start);
+        float factor = 16f / (2 + height - start);
         final int chunkCheck = (int) Math.ceil(radius) + 1;
         
-        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256) return false;
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256 || !TreeSoilRegistry.isValidSoil(below)) return false;
         
         // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(below)/* || y >= 256 - height - 4*/)
-            return false;
+        //if (!TreeSoilRegistry.isValidSoil(below) || y >= 256 - height - 4)
+            //return false;
         
         // Make sure that the tree can fit in the world
         //if (y < 1 || y + height + 4 > 256)
@@ -115,10 +115,10 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
         // Check the leaves the leaves
         for (int layer = 0; layer < 4 + height - start; layer++)
         {
-            double offset = factor * layer;
-            double offset2 = offset * offset;
-            double offset3 = offset2 * offset;
-            double r1 = radius * ((0.00142 * offset3) - (0.0517 * offset2) + (0.5085 * offset) - 0.4611);
+            float offset = factor * layer;
+            float offset2 = offset * offset;
+            float offset3 = offset2 * offset;
+            float r1 = ((float)radius * ((0.00142f * offset3) - (0.0517f * offset2) + (0.5085f * offset) - 0.4611f));
             if (!checkLeavesCircle(x, layer + start + y, z, r1, world))
                 return false;
         }
@@ -132,14 +132,14 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
         final int height = rand.nextInt(BASE_HEIGHT_VARIANCE) + BASE_HEIGHT;
         int start = CANOPY_START_HEIGHT + (int) ((rand.nextFloat() * CANOPY_START_VARIANCE) - (CANOPY_START_VARIANCE / 2));
         double radius = (CANOPY_RADIUS + ((rand.nextFloat() * CANOPY_RADIUS_VARIANCE) + (CANOPY_RADIUS_VARIANCE / 2)));
-        double factor = 16.0D / (2 + height - start);
+        float factor = 16f / (2 + height - start);
         final int chunkCheck = (int) Math.ceil(radius) + 1;
         
-        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256) return false;
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256 || !TreeSoilRegistry.isValidSoil(below)) return false;
         
         // Make sure that a tree can grow on the soil
-        if (!TreeSoilRegistry.isValidSoil(below)/* || y >= 256 - height - 4*/)
-            return false;
+        //if (!TreeSoilRegistry.isValidSoil(below) || y >= 256 - height - 4)
+            //return false;
         
         // Make sure that the tree can fit in the world
         //if (y < 1 || y + height + 4 > 256)
@@ -155,10 +155,10 @@ public class WorldGenCypressTree extends WorldGenNewTreeBase
             // Generate the leaves
             for (int layer = 0; layer < 4 + height - start; layer++)
             {
-                double offset = factor * layer;
-                double offset2 = offset * offset;
-                double offset3 = offset2 * offset;
-                double r1 = radius * ((0.00142 * offset3) - (0.0517 * offset2) + (0.5085 * offset) - 0.4611);
+                float offset = factor * layer;
+                float offset2 = offset * offset;
+                float offset3 = offset2 * offset;
+                float r1 = ((float)radius * ((0.00142f * offset3) - (0.0517f * offset2) + (0.5085f * offset) - 0.4611f));
                 placeLeavesCircle(x, layer + start + y, z, r1, TreeBlock.LEAVES.get(), world);
             }
             

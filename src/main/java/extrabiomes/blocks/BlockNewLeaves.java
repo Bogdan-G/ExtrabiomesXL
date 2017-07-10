@@ -509,5 +509,11 @@ public class BlockNewLeaves extends BlockLeavesBase implements IShearable
             removeLeaves(world, x, y, z);
         }
     }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
     
 }

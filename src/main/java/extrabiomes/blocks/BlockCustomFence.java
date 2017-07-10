@@ -134,4 +134,10 @@ public class BlockCustomFence extends BlockFence {
   public int getDamageValue(World world, int x, int y, int z) {
     return world.getBlockMetadata(x, y, z);
   }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
 }

@@ -94,4 +94,10 @@ public class BlockCatTail extends BlockFlower
             world.setBlock(x, y, z, Blocks.air);
         }
     }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
 }

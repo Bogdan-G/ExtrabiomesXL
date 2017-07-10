@@ -111,12 +111,12 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         final int chunkCheck = width + 1;
         
         // make sure that we have room to grow the tree
-        if (y >= 256 - height - 4)
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256)
             return false;
         
         // Make sure that the tree can fit in the world
-        if (y < 1 || y + height + 4 > 256)
-            return false;
+        //if (y < 1 || y + height + 4 > 256)
+            //return false;
         
         // Make sure that a tree can grow on the soil
         //old: if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
@@ -149,12 +149,12 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
         final int chunkCheck = width + 1;
         
         // make sure that we have room to grow the tree
-        if (y >= 256 - height - 4)
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256)
             return false;
         
         // Make sure that the tree can fit in the world
-        if (y < 1 || y + height + 4 > 256)
-            return false;
+        //if (y < 1 || y + height + 4 > 256)
+            //return false;
         
         // Make sure that a tree can grow on the soil
         //old: if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z + 1)) || !TreeSoilRegistry.isValidSoil(world.getBlock(x + 1, y - 1, z + 1)))
@@ -454,7 +454,7 @@ public class WorldGenRainbowEucalyptusTree extends WorldGenNewTreeBase
     {
         for (int layer = -height; layer <= height; layer++)
         {
-            this.placeLeavesCircle(x, y + layer, z, radius * Math.cos(layer / (height / 1.3)), TreeBlock.LEAVES.get(), world);
+            this.placeLeavesCircle(x, y + layer, z, (float)(radius * Math.cos(layer / (height / 1.3))), TreeBlock.LEAVES.get(), world);
         }
     }
     

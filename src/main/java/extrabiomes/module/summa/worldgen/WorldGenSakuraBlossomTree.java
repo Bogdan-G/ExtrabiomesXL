@@ -103,12 +103,12 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         final int chunkCheck = (int) Math.ceil(radius) + 5;
         
         // make sure that we have room to grow the tree
-        if (y >= 256 - height - 4)
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256)
             return false;
         
         // Make sure that the tree can fit in the world
-        if (y < 1 || y + height + 4 > 256)
-            return false;
+        //if (y < 1 || y + height + 4 > 256)
+            //return false;
         
         // Make sure that a tree can grow on the soil
         if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
@@ -135,12 +135,12 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         final int chunkCheck = (int) Math.ceil(radius) + 1;
         
         // make sure that we have room to grow the tree
-        if (y >= 256 - height - 4)
+        if (y >= 256 - height - 4 || y < 1 || y + height + 4 > 256)
             return false;
         
         // Make sure that the tree can fit in the world
-        if (y < 1 || y + height + 4 > 256)
-            return false;
+        //if (y < 1 || y + height + 4 > 256)
+            //return false;
         
         // Make sure that a tree can grow on the soil
         if (!TreeSoilRegistry.isValidSoil(world.getBlock(x, y - 1, z)))
@@ -164,10 +164,10 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
     
     public boolean checkBranches(World world, Random rand, int x, int y, int z, int height, double radius)
     {
-        int branchCount = BRANCHES_BASE_NUMBER + rand.nextInt(BRANCHES_EXTRA);
-        double curAngle = 0.0D;
+        final int branchCount = BRANCHES_BASE_NUMBER + rand.nextInt(BRANCHES_EXTRA);
+        float curAngle = 0.0f;
         
-        double[] average = { 0, 0, 0 };
+        final float[] average = { 0, 0, 0 };
         int[] start = { x, y, z };
         //Queue<int[]> branches = new LinkedList<int[]>();
         List<int[]> branches = new ArrayList<int[]>();
@@ -176,15 +176,15 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         for (int i = 0; i < branchCount; i++)
         {
             // Get the branch radius and height
-            double angle = (rand.nextInt(50) + 35) / 90.0D;
-            double thisHeight = (height + 1) * Math.sin(angle) / 1.3;
-            double thisRadius = radius * Math.cos(angle);
+            final float angle = (rand.nextInt(50) + 35) / 90.0f;
+            final float thisHeight = (height + 1) * (float)Math.sin(angle) / 1.3f;
+            final float thisRadius = (float)(radius * Math.cos(angle));
             
             // Get the branch rotation
-            curAngle += (rand.nextInt(360 / branchCount) + (360 / branchCount)) / 90.0D;//  + (360.0D/branchCount) / 180.0D ;
+            curAngle += (rand.nextInt(360 / branchCount) + (360 / branchCount)) / 90.0f;//  + (360.0D/branchCount) / 180.0D ;
             
-            int x1 = (int) ((thisRadius) * Math.cos(curAngle));
-            int z1 = (int) ((thisRadius) * Math.sin(curAngle));
+            final int x1 = (int) ((thisRadius) * Math.cos(curAngle));
+            final int z1 = (int) ((thisRadius) * Math.sin(curAngle));
             
             // Add the the average count
             average[0] += x1;
@@ -192,7 +192,7 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
             average[2] += z1;
             
             // Add to the branch list
-            int[] node = new int[] { x1 + x, (int) thisHeight + y, z1 + z };
+            final int[] node = new int[] { x1 + x, (int) thisHeight + y, z1 + z };
             
             // Add the branch end for leaf generation
             branches.add(node);
@@ -213,11 +213,11 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         
         // Calculate the center position
         average[0] /= branchCount;
-        average[1] = (branchCount / average[1]) + 2.3D;
+        average[1] = (branchCount / average[1]) + 2.3f;
         average[2] /= branchCount;
         
         // Generate the canopy
-        if (!checkCanopy(world, average[0] + x, y, average[2] + z, radius, height))
+        if (!checkCanopy(world, (int)average[0] + x, y, (int)average[2] + z, radius, height))
             return false;
         
         return true;
@@ -226,11 +226,11 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
     
     public void generateBranches(World world, Random rand, int x, int y, int z, int height, double radius)
     {
-        int branchCount = BRANCHES_BASE_NUMBER + rand.nextInt(BRANCHES_EXTRA);
-        double curAngle = 0.0D;
+        final int branchCount = BRANCHES_BASE_NUMBER + rand.nextInt(BRANCHES_EXTRA);
+        float curAngle = 0.0f;
         
-        double[] average = { 0, 0, 0 };
-        int[] start = { x, y, z };
+        final float[] average = { 0, 0, 0 };
+        final int[] start = { x, y, z };
         //Queue<int[]> branches = new LinkedList<int[]>();
         List<int[]> branches = new ArrayList<int[]>();
         
@@ -238,15 +238,15 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         for (int i = 0; i < branchCount; i++)
         {
             // Get the branch radius and height
-            double angle = (rand.nextInt(50) + 35) / 90.0D;
-            double thisHeight = (height + 1) * Math.sin(angle) / 1.3;
-            double thisRadius = radius * Math.cos(angle);
+            final float angle = (rand.nextInt(50) + 35) / 90.0f;
+            final float thisHeight = (height + 1) * (float)Math.sin(angle) / 1.3f;
+            final float thisRadius = (float)(radius * Math.cos(angle));
             
             // Get the branch rotation
-            curAngle += (rand.nextInt(360 / branchCount) + (360 / branchCount)) / 90.0D;//  + (360.0D/branchCount) / 180.0D ;
+            curAngle += (rand.nextInt(360 / branchCount) + (360 / branchCount)) / 90.0f;//  + (360.0D/branchCount) / 180.0D ;
             
-            int x1 = (int) ((thisRadius) * Math.cos(curAngle));
-            int z1 = (int) ((thisRadius) * Math.sin(curAngle));
+            final int x1 = (int) ((thisRadius) * Math.cos(curAngle));
+            final int z1 = (int) ((thisRadius) * Math.sin(curAngle));
             
             // Add the the average count
             average[0] += x1;
@@ -254,7 +254,7 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
             average[2] += z1;
             
             // Add to the branch list
-            int[] node = new int[] { x1 + x, (int) thisHeight + y, z1 + z };
+            final int[] node = new int[] { x1 + x, (int) thisHeight + y, z1 + z };
             
             // Add the branch end for leaf generation
             branches.add(node);
@@ -273,21 +273,21 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         
         // Calculate the center position
         average[0] /= branchCount;
-        average[1] = (branchCount / average[1]) + 2.3D;
+        average[1] = (branchCount / average[1]) + 2.3f;
         average[2] /= branchCount;
         
         // Generate the canopy
-        generateCanopy(world, rand, average[0] + x, y, average[2] + z, radius, height, TreeBlock.LEAVES.get());
+        generateCanopy(world, rand, (int)average[0] + x, y, (int)average[2] + z, radius, height, TreeBlock.LEAVES.get());
         
         // Generate the center cone
         generateVerticalCone(world, x, y, z, height - 1, .75, 2, TreeBlock.LEAVES.get());
         
     }
     
-    public boolean checkCanopy(World world, double x, double y, double z, double radius, int height)
+    public boolean checkCanopy(World world, int x, int y, int z, double radius, int height)
     {
-        int layers = height + 2;
-        for (int y1 = (int) y, layer = 0; layer < layers; layer++, y1++)
+        final int layers = height + 2;
+        for (int y1 = y, layer = 0; layer < layers; layer++, y1++)
         {
             if (!checkCanopyLayer(world, x, y1, z, radius * Math.cos((layer) / (height / 1.3))))
                 return false;
@@ -296,9 +296,9 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         return true;
     }
     
-    public void generateCanopy(World world, Random rand, double x, double y, double z, double radius, int height, ItemStack leaves)
+    public void generateCanopy(World world, Random rand, int x, int y, int z, double radius, int height, ItemStack leaves)
     {
-        int layers = height + 2;
+        final int layers = height + 2;
         for (int y1 = (int) y, layer = 0; layer < layers; layer++, y1++)
         {
             if (layer < 2)
@@ -314,30 +314,28 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
     
     public void generateVerticalCone(World world, int x, int y, int z, int height, double r1, double r2, ItemStack leaves)
     {
-        double ratio = (r2 - r1) / (height - 1);
+        final double ratio = (r2 - r1) / (height - 1);
         
         for (int offset = 0; offset < height; offset++)
         {
-            placeLeavesCircle(x, y + offset, z, (ratio * offset) + r1, leaves, world);
+            placeLeavesCircle(x, y + offset, z, (int)((ratio * offset) + r1), leaves, world);
         }
     }
     
-    public boolean checkCanopyLayer(World world, double x, double y, double z, double radius)
+    public boolean checkCanopyLayer(World world, int x, int y, int z, double radius)
     {
-        double minDist = (radius - 3 > 0) ? ((radius - 3) * (radius - 3)) : -1;
-        double maxDist = radius * radius;
+        final float minDist = (radius - 3 > 0) ? (float)((radius - 3) * (radius - 3)) : -1;
+        final float maxDist = (float)(radius * radius);
         
         try { for (int z1 = (int) -radius; z1 < (radius + 1); z1++)
         {
             for (int x1 = (int) -radius; x1 < (radius + 1); x1++)
             {
-                Block block;
-                
-                	block = world.getBlock((int) (x1 + x), (int) y, (int) (z1 + z));
+                final Block block = world.getBlock(x1 + x, y, z1 + z);
                 
                 if ((((x1 * x1) + (z1 * z1)) <= maxDist) && (((x1 * x1) + (z1 * z1)) >= minDist))
                 {
-                    if (block != null && !block.isReplaceable(world,(int) (x1 + x), (int) y, (int) (z1 + z)))
+                    if (block != null && !block.isReplaceable(world,x1 + x, y, z1 + z))
                     {
                         return false;
                     }
@@ -348,24 +346,24 @@ public class WorldGenSakuraBlossomTree extends WorldGenNewTreeBase
         return true;
     }
     
-    public void generateCanopyLayer(World world, Random rand, double x, double y, double z, double radius, int skipChance, ItemStack leaves)
+    public void generateCanopyLayer(World world, Random rand, int x, int y, int z, double radius, int skipChance, ItemStack leaves)
     {
-        double minDist = (radius - 3 > 0) ? ((radius - 3) * (radius - 3)) : -1;
-        double maxDist = radius * radius;
+        final float minDist = (radius - 3 > 0) ? (float)((radius - 3) * (radius - 3)) : -1;
+        final float maxDist = (float)(radius * radius);
         
         for (int z1 = (int) -radius; z1 < (radius + 1); z1++)
         {
             for (int x1 = (int) -radius; x1 < (radius + 1); x1++)
             {
-                final Block block = world.getBlock((int) (x1 + x), (int) y, (int) (z1 + z));
+                final Block block = world.getBlock(x1 + x, y, z1 + z);
                 
                 if ((((x1 * x1) + (z1 * z1)) <= maxDist) && (((x1 * x1) + (z1 * z1)) >= minDist))
                 {
-                    if (block == null || block.canBeReplacedByLeaves(world, (int) (x1 + x), (int) y, (int) (z1 + z)))
+                    if (block == null || block.canBeReplacedByLeaves(world, x1 + x, y, z1 + z))
                     {
                         if (rand.nextInt(skipChance) != 0)
                         {
-                            setLeafBlock(world, (int) (x1 + x), (int) y, (int) (z1 + z), leaves);
+                            setLeafBlock(world, x1 + x, y, z1 + z, leaves);
                         }
                     }
                 }

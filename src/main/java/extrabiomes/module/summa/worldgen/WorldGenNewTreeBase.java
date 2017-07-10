@@ -25,19 +25,22 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     
     public boolean check1x1Trunk(int x, int y, int z, int height, ItemStack logs, World world)
     {
-        for (int y1 = y + 1; y1 < y + height; )
+        /*for (int y1 = y + 1; y1 < y + height; )
         {
             if (!world.isAirBlock(x, y1, z))
                 return false;
             y1=y1+2;//reduce check
-        }
+        }*/
+        if (!world.isAirBlock(x, y+1, z)) return false;
+        if (!world.isAirBlock(x, y+4, z)) return false;
+        if (!world.isAirBlock(x, y+5, z)) return false;
         
         return true;
     }
     
-    public boolean place1x1Trunk(int x, int y, int z, int height, ItemStack logs, World world)
+    public boolean place1x1Trunk(int x, int y, int z, final int height, final ItemStack logs, World world)
     {
-        Block logBlock = Block.getBlockFromItem(logs.getItem());
+        final Block logBlock = Block.getBlockFromItem(logs.getItem());
         // Place the wood blocks
         for (int y1 = y; y1 < y + height; y1++)
         {
@@ -47,9 +50,9 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
         return true;
     }
     
-    public boolean place2x2Trunk(int x, int y, int z, int height, ItemStack logs, World world)
+    public boolean place2x2Trunk(int x, int y, int z, final int height, final ItemStack logs, World world)
     {
-    	Block logBlock = Block.getBlockFromItem(logs.getItem());
+    	final Block logBlock = Block.getBlockFromItem(logs.getItem());
         for (int y1 = y; y1 < y + height; y1++)
         {
             setBlockAndNotifyAdequately(world, x, y1, z, logBlock, 0);
@@ -61,30 +64,44 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
         return true;
     }
     
-    public boolean check2x2Trunk(int x, int y, int z, int height, ItemStack logs, World world, boolean inWater)
+    public boolean check2x2Trunk(int x, int y, int z, final int height, final ItemStack logs, World world, final boolean inWater)
     {
         if (inWater)
         {
-            for (int y1 = y + 1; y1 < y + height; )
+                final int y1_0 = y + 1;
+                final Block b00 = world.getBlock(x, y1_0, z);
+                final Block b10 = world.getBlock(x + 1, y1_0, z);
+                final Block b01 = world.getBlock(x, y1_0, z + 1);
+                final Block b11 = world.getBlock(x + 1, y1_0, z + 1);
+                if (b00 != null && !b00.equals(Blocks.water) && !b00.getMaterial().isReplaceable()) return false;
+                if (b01 != null && !b01.equals(Blocks.water) && !b01.getMaterial().isReplaceable()) return false;
+                if (b10 != null && !b10.equals(Blocks.water) && !b10.getMaterial().isReplaceable()) return false;
+                if (b11 != null && !b11.equals(Blocks.water) && !b11.getMaterial().isReplaceable()) return false;
+            /*for (int y1 = y + 1; y1 < y + height; )
             {
                 Block b00 = world.getBlock(x, y1, z);
                 //Block b10 = world.getBlock(x + 1, y1, z);
                 //Block b01 = world.getBlock(x, y1, z + 1);
-                Block b11 = world.getBlock(x + 1, y1, z + 1);
-                if (b00 != null && !b00.equals(Blocks.water) && !b00.isReplaceable(world, x, y1, z))
+                Block b11 = world.getBlock(x + 1, y1+1, z + 1);
+                if (b00 != null && !b00.equals(Blocks.water) && !b00.getMaterial().isReplaceable())
                     return false;
                 //if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z))
                     //return false;
                 //if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1))
                     //return false;
-                if (b11 != null && !b11.equals(Blocks.water) && !b11.isReplaceable(world, x + 1, y1, z + 1))
+                if (b11 != null && !b11.equals(Blocks.water) && !b11.getMaterial().isReplaceable())
                     return false;
-                y1=y1+2;
-            }
+                y1=y1+3;
+            }*/
         }
         else
         {
-            for (int y1 = y + 1; y1 < y + height; )
+                final int y1_0 = y + 1;
+                if (!world.isAirBlock(x, y1_0, z)) return false;
+                if (!world.isAirBlock(x + 1, y1_0, z)) return false;
+                if (!world.isAirBlock(x, y1_0, z + 1)) return false;
+                if (!world.isAirBlock(x + 1, y1_0, z + 1)) return false;
+            /*for (int y1 = y + 1; y1 < y + height; )
             {
                 if (!world.isAirBlock(x, y1, z))
                     return false;
@@ -92,10 +109,10 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
                     //return false;
                 //if (!world.isAirBlock(x, y1, z + 1))
                     //return false;
-                if (!world.isAirBlock(x + 1, y1, z + 1))
+                if (!world.isAirBlock(x + 1, y1+1, z + 1))
                     return false;
-                y1=y1+2;
-            }
+                y1=y1+3;
+            }*/
         }
         
         return true;
@@ -130,7 +147,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
         
         for (int y1 = y - 1; y1 > 1; y1--)
         {
-            Block block = world.getBlock(x, y1, z);
+            final Block block = world.getBlock(x, y1, z);
             if (block != null && !block.canBeReplacedByLeaves(world, x, y1, z))
                 break;
             
@@ -167,7 +184,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z >= end[2]; z--)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -178,7 +195,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z <= end[2]; z++)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -193,7 +210,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x >= end[0]; x--)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -204,7 +221,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x <= end[0]; x++)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -219,7 +236,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y >= end[1]; y--)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -230,7 +247,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y <= end[1]; y++)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (!world.isAirBlock(x, y, z))
@@ -244,7 +261,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     
     public boolean placeBlockLine(int[] start, int[] end, ItemStack logs, World world)
     {
-        Block logBlock = Block.getBlockFromItem(logs.getItem());
+        final Block logBlock = Block.getBlockFromItem(logs.getItem());
         
         if (start.length != 3 || end.length != 3)
             return false;
@@ -262,7 +279,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z >= end[2]; z--)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -273,7 +290,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z <= end[2]; z++)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -288,7 +305,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x >= end[0]; x--)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -299,7 +316,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x <= end[0]; x++)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -314,7 +331,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y >= end[1]; y--)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (world.isAirBlock(x, y, z))
@@ -325,7 +342,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y <= end[1]; y++)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (world.isAirBlock(x, y, z))
@@ -339,7 +356,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     
     public boolean placeThinBlockLine(int[] start, int[] end, ItemStack logs, World world)
     {
-        Block logBlock = Block.getBlockFromItem(logs.getItem());
+        final Block logBlock = Block.getBlockFromItem(logs.getItem());
         if (start.length != 3 || end.length != 3)
             return false;
         
@@ -358,7 +375,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z >= end[2]; z--)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -394,7 +411,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int z = start[2]; z <= end[2]; z++)
                 {
-                    double m = (z - start[2]) / (double) direction[2];
+                    float m = (z - start[2]) / (float) direction[2];
                     int x = (int) (start[0] + (direction[0] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -434,7 +451,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x >= end[0]; x--)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -469,7 +486,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int x = start[0]; x <= end[0]; x++)
                 {
-                    double m = (x - start[0]) / (double) direction[0];
+                    float m = (x - start[0]) / (float) direction[0];
                     int z = (int) (start[2] + (direction[2] * m));
                     int y = (int) (start[1] + (direction[1] * m));
                     if (world.isAirBlock(x, y, z))
@@ -508,7 +525,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y >= end[1]; y--)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (world.isAirBlock(x, y, z))
@@ -543,7 +560,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
             {
                 for (int y = start[1]; y <= end[1]; y++)
                 {
-                    double m = (y - start[1]) / (double) direction[1];
+                    float m = (y - start[1]) / (float) direction[1];
                     int x = (int) (start[0] + (direction[0] * m));
                     int z = (int) (start[2] + (direction[2] * m));
                     if (world.isAirBlock(x, y, z))
@@ -579,16 +596,16 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
         return true;
     }
     
-    public boolean checkLeavesCircle(double x, int y, double z, double r, World world)
+    public boolean checkLeavesCircle(int x, int y, int z, float r, World world)
     {
-        double dist = r * r;
+        final float dist = r * r;
         
-        for (double z1 = Math.floor(-r); z1 < r + 1; z1++)
+        for (int z1 = (int)Math.floor(-r); z1 < r + 1; z1++)
         {
-            for (double x1 = Math.floor(-r); x1 < r + 1; x1++)
+            for (int x1 = (int)Math.floor(-r); x1 < r + 1; x1++)
             {
-                int x2 = (int) (x1 + x);
-                int z2 = (int) (z1 + z);
+                int x2 = x1 + x;
+                int z2 = z1 + z;
                 
                 final Block block = world.getBlock(x2, y, z2);
                 
@@ -603,16 +620,16 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
         return true;
     }
     
-    public void placeLeavesCircle(double x, int y, double z, double r, ItemStack leaves, World world)
+    public void placeLeavesCircle(int x, int y, int z, float r, ItemStack leaves, World world)
     {
-        double dist = r * r;
+        final float dist = r * r;
         
-        for (double z1 = Math.floor(-r); z1 < r + 1; z1++)
+        for (int z1 = (int)Math.floor(-r); z1 < r + 1; z1++)
         {
-            for (double x1 = Math.floor(-r); x1 < r + 1; x1++)
+            for (int x1 = (int)Math.floor(-r); x1 < r + 1; x1++)
             {
-                int x2 = (int) (x1 + x);
-                int z2 = (int) (z1 + z);
+                int x2 = x1 + x;
+                int z2 = z1 + z;
                 
                 final Block block = world.getBlock(x2, y, z2);
                 
@@ -634,7 +651,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     {
         for (int layer = -height; layer <= height; layer++)
         {
-            if (!checkLeavesCircle(x, y + layer, z, radius * Math.cos(layer / (height / 1.3)), world))
+            if (!checkLeavesCircle(x, y + layer, z, (float)(radius * Math.cos(layer / (height / 1.3))), world))
                 return false;
         }
         
@@ -645,7 +662,7 @@ public abstract class WorldGenNewTreeBase extends WorldGenAbstractTree
     {
         for (int layer = -height; layer <= height; layer++)
         {
-            placeLeavesCircle(x, y + layer, z, radius * Math.cos(layer / (height / 1.3)), leaves, world);
+            placeLeavesCircle(x, y + layer, z, (float)(radius * Math.cos(layer / (height / 1.3))), leaves, world);
         }
     }
 }

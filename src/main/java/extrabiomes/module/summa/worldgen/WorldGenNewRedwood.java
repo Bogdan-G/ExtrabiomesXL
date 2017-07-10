@@ -415,27 +415,41 @@ public class WorldGenNewRedwood extends WorldGenAbstractTree
         return lastSeed;
     }
     
-    public boolean check2x2Trunk(int x, int y, int z, int height, World world, boolean inWater) {
+    public boolean check2x2Trunk(int x, int y, int z, final int height, World world, final boolean inWater) {
         if (inWater) {
-            for (int y1 = y + 1; y1 < y + height; ) {
+                final int y1_0 = y + 1;
+                final Block b00 = world.getBlock(x, y1_0, z);
+                final Block b10 = world.getBlock(x + 1, y1_0, z);
+                final Block b01 = world.getBlock(x, y1_0, z + 1);
+                final Block b11 = world.getBlock(x + 1, y1_0, z + 1);
+                if (b00 != null && !b00.equals(Blocks.water) && !b00.getMaterial().isReplaceable()) return false;
+                if (b01 != null && !b01.equals(Blocks.water) && !b01.getMaterial().isReplaceable()) return false;
+                if (b10 != null && !b10.equals(Blocks.water) && !b10.getMaterial().isReplaceable()) return false;
+                if (b11 != null && !b11.equals(Blocks.water) && !b11.getMaterial().isReplaceable()) return false;
+            /*for (int y1 = y + 2; y1 < y + height; ) {
                 Block b00 = world.getBlock(x, y1, z);
                 //Block b10 = world.getBlock(x + 1, y1, z);
                 //Block b01 = world.getBlock(x, y1, z + 1);
-                Block b11 = world.getBlock(x + 1, y1, z + 1);
-                if (b00 != null && !b00.equals(Blocks.water) && !b00.isReplaceable(world, x, y1, z)) return false;
+                Block b11 = world.getBlock(x + 1, y1+1, z + 1);
+                if (b00 != null && !b00.equals(Blocks.water) && !b00.getMaterial().isReplaceable()) return false;
                 //if (b01 != null && !b01.equals(Blocks.water) && !b01.isReplaceable(world, x + 1, y1, z)) return false;
                 //if (b10 != null && !b10.equals(Blocks.water) && !b10.isReplaceable(world, x, y1, z + 1)) return false;
-                if (b11 != null && !b11.equals(Blocks.water) && !b11.isReplaceable(world, x + 1, y1, z + 1)) return false;
-                y1=y1+2;
-            }
+                if (b11 != null && !b11.equals(Blocks.water) && !b11.getMaterial().isReplaceable()) return false;
+                y1=y1+3;
+            }*/
         } else {
-            for (int y1 = y + 1; y1 < y + height; ) {
+                final int y1_0 = y + 1;
+                if (!world.isAirBlock(x, y1_0, z)) return false;
+                if (!world.isAirBlock(x + 1, y1_0, z)) return false;
+                if (!world.isAirBlock(x, y1_0, z + 1)) return false;
+                if (!world.isAirBlock(x + 1, y1_0, z + 1)) return false;
+            /*for (int y1 = y + 2; y1 < y + height; ) {
                 if (!world.isAirBlock(x, y1, z)) return false;
                 //if (!world.isAirBlock(x + 1, y1, z)) return false;
                 //if (!world.isAirBlock(x, y1, z + 1)) return false;
-                if (!world.isAirBlock(x + 1, y1, z + 1)) return false;
-                y1=y1+2;
-            }
+                if (!world.isAirBlock(x + 1, y1+1, z + 1)) return false;
+                y1=y1+3;
+            }*/
         }
 
         return true;

@@ -163,4 +163,10 @@ public class BlockCustomTallGrass extends BlockFlower implements IShearable
     {
         return 1 + rand.nextInt(i * 2 + 1);
     }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
 }
